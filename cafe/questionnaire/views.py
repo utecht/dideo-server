@@ -15,7 +15,7 @@ class QuestionList(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 
     def list(self, request, category):
-        questions = Question.objects.filter(category=category)
+        questions = Question.objects.filter(category=category).order_by('order')
         serializer = self.get_serializer(questions, many=True)
         return Response(serializer.data)
 
