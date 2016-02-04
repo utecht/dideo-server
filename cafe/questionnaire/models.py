@@ -30,9 +30,12 @@ class Option(models.Model):
         return self.text
 
 class Answer(models.Model):
-    value = models.CharField(max_length=50)
-    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    text = models.CharField(max_length=50, null=True, blank=True)
+    check = models.CommaSeparatedIntegerField(max_length=20, blank=True, null=True)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answer')
+    number = models.IntegerField(null=True, blank=True)
+    yesno = models.NullBooleanField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
-        return self.value
+        return "{} - {}".format(self.user, self.question.id)
 

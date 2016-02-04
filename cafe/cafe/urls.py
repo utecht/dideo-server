@@ -23,6 +23,7 @@ admin.autodiscover()
 router = routers.DefaultRouter()
 router.register(r'categories', CategoryList)
 router.register(r'questions/(?P<category>[0-9]+)', QuestionList)
+router.register(r'answer', AnswerViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
