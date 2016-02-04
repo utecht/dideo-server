@@ -9,7 +9,9 @@ class Category(models.Model):
         return self.name
 
 QUESTION_TYPES = (('combo', 'Combo Box'),
+                  ('check', 'Check Boxes'),
                   ('text', 'Text Field'),
+                  ('int', 'Integer Field'),
                   ('bool', 'Yes or No'))
     
 class Question(models.Model):
