@@ -42,3 +42,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
     serializer_class = AnswerSerializer
     queryset = Answer.objects.all()
     permission_classes = (AnswerAccessPermission,)
+    lookup_fields = ('question', 'user')
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
