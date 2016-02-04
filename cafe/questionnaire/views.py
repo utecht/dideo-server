@@ -31,13 +31,14 @@ class AnswerAccessPermission(permissions.BasePermission):
     message = 'Must be logged in to submit answers'
 
     def has_permission(self, request, view):
-        return request.user
+        return request.user is not None
 
     def has_object_permission(self, request, view, obj):
+        self.message = "You can only modify your own answers"
         return obj.user == request.user
         
 
 class AnswerViewSet(viewsets.ModelViewSet):
     serializer_class = AnswerSerializer
     queryset = Answer.objects.all()
-    permission_classes = (permissions.IsAdminUser, AnswerAccessPermission)
+    permission_classes = (AnswerAccessPermission,)
