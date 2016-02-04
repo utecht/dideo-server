@@ -8,11 +8,11 @@ from rest_framework import permissions
 from django.db.models import Q
 
 # Create your views here.
-class CategoryList(viewsets.ModelViewSet):
+class CategoryList(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     
-class QuestionList(viewsets.ModelViewSet):
+class QuestionList(viewsets.ReadOnlyModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
