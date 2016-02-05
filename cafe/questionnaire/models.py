@@ -27,10 +27,10 @@ class Question(models.Model):
     tags = models.CharField(max_length=100, blank=True, null=True)
     help_text = models.CharField(max_length=500, blank=True, null=True)
     def __str__(self):
-        return "{} - {}".format(self.order, self.text[:100])
+        return "{} - {} - {}".format(self.category.id, self.order, self.text[:100])
 
 class Option(models.Model):
-    text = models.CharField(max_length=50)
+    text = models.CharField(max_length=200)
     free = models.BooleanField(default=False)
     def __str__(self):
         return self.text
