@@ -4,6 +4,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
 from django.db.models import Q
 
@@ -15,6 +16,7 @@ class CategoryList(viewsets.ReadOnlyModelViewSet):
 class QuestionList(viewsets.ReadOnlyModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    authentication_classes = (TokenAuthentication,)
 
     def list(self, request, category):
         if request.user.is_authenticated():
@@ -42,7 +44,12 @@ class AnswerViewSet(viewsets.ModelViewSet):
     serializer_class = AnswerSerializer
     queryset = Answer.objects.all()
     permission_classes = (AnswerAccessPermission,)
+    authentication_classes = (TokenAuthentication,)
     lookup_fields = ('question', 'user')
 
     def perform_create(self, serializer):
+        Answer.objects.filter(user=self.request.user, question=serializer.validated_data['question']).delete()
+        serializer.save(user=self.request.user)
+        
+    def perform_update(self, serializer):
         serializer.save(user=self.request.user)

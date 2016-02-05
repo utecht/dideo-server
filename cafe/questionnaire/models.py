@@ -20,12 +20,14 @@ QUESTION_TYPES = (('combo', 'Combo Box'),
     
 class Question(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    text = models.CharField(max_length=200, blank=False)
+    text = models.CharField(max_length=500, blank=False)
     order = models.IntegerField()
     q_type = models.CharField(max_length=5, choices=QUESTION_TYPES)
     options = models.ManyToManyField('Option', blank=True)
+    tags = models.CharField(max_length=100, blank=True, null=True)
+    help_text = models.CharField(max_length=500, blank=True, null=True)
     def __str__(self):
-        return self.text[:50]
+        return "{} - {}".format(self.order, self.text[:100])
 
 class Option(models.Model):
     text = models.CharField(max_length=50)
@@ -40,6 +42,8 @@ class Answer(models.Model):
     integer = models.IntegerField(null=True, blank=True)
     yesno = models.NullBooleanField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = ('user', 'question')
     def __str__(self):
         return "{} - {}".format(self.user, self.question.id)
     
