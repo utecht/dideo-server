@@ -20,10 +20,10 @@ class QuestionList(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, category):
         if request.user.is_authenticated():
-            questions = Question.objects.filter(
-                    Q(category=category),
-                    Q(answer__isnull=True) | Q(answer__user=request.user)
-                ).order_by('order')
+            print(request.user)
+            questions = Question.objects.filter(category=category)
+            for q in questions:
+                q.answer = Answer.objects.filter(user=request.user, question=q)
         else:
             questions = Question.objects.filter(category=category).order_by('order')
         serializer = self.get_serializer(questions, many=True)
