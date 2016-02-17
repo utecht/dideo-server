@@ -7,6 +7,11 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 # Create your models here.
+class Definition():
+    def __init__(self, word, definition):
+        self.word = word
+        self.definition = definition
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     def __str__(self):

@@ -25,9 +25,10 @@ router = routers.DefaultRouter()
 router.register(r'categories', CategoryList)
 router.register(r'questions/(?P<category>[0-9]+)', QuestionList)
 router.register(r'answer', AnswerViewSet)
+router.register(r'definitions', DefinitionList, base_name='d')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
-    url(r'^auth/', views.obtain_auth_token)
+    url(r'^auth/', views.obtain_auth_token),
 ]

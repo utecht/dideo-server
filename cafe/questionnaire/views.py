@@ -9,6 +9,17 @@ from rest_framework import permissions
 from django.db.models import Q
 
 # Create your views here.
+def definitions(request):
+    return '{[{"word": "TMD", "definition": "this is a test"}]}'
+
+class DefinitionList(viewsets.ViewSet):
+    def list(self, request):
+        words = []
+        words.append(Definition('test', 'this is a test'))
+        words.append(Definition('TMD', 'Trauma Medical Director'))
+        serializer = DefinitionSerializer(words, many=True)
+        return Response(serializer.data)
+
 class CategoryList(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
