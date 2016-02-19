@@ -9,9 +9,6 @@ from rest_framework import permissions
 from django.db.models import Q
 
 # Create your views here.
-def definitions(request):
-    return '{[{"word": "TMD", "definition": "this is a test"}]}'
-
 class DefinitionList(viewsets.ViewSet):
     def list(self, request):
         words = []
