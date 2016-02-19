@@ -6,7 +6,8 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
-from django.db.models import Q
+from questionnaire.rdf import get_definitions
+
 
 # Create your views here.
 class DefinitionList(viewsets.ViewSet):
@@ -14,8 +15,12 @@ class DefinitionList(viewsets.ViewSet):
         words = []
         words.append(Definition('test', 'this is a test'))
         words.append(Definition('TMD', 'Trauma Medical Director'))
-        serializer = DefinitionSerializer(words, many=True)
-        return Response(serializer.data)
+        words = get_definitions()
+        if words:
+            serializer = DefinitionSerializer(words, many=True)
+            return Response(serializer.data)
+        else:
+            return Response()
 
 class CategoryList(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
