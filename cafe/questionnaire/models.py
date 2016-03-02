@@ -25,7 +25,7 @@ QUESTION_TYPES = (('combo', 'Combo Box'),
     
 class Question(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    text = models.CharField(max_length=500, blank=False)
+    text = models.TextField(blank=False)
     order = models.IntegerField()
     q_type = models.CharField(max_length=5, choices=QUESTION_TYPES)
     options = models.ManyToManyField('Option', blank=True)
