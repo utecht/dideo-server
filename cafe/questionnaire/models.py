@@ -51,6 +51,21 @@ class Answer(models.Model):
         unique_together = ('user', 'question')
     def __str__(self):
         return "{} - {}".format(self.user, self.question.id)
+
+class Statement(models.Model):
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    subject = models.CharField(max_length=255)
+    predicate = models.CharField(max_length=255)
+    obj = models.CharField(max_length=255)
+    choice = models.ForeignKey('Option', on_delete=models.CASCADE, null=True, blank=True)
+    value = models.BooleanField()
+    def __str__(self):
+        return "{} - {} {} {}".format(self.question, self.subject, self.predicate, self.obj)
+
+class RDFPrefix(models.Model):
+    prefix = models.CharField(max_length=255)
+    def __str__(self):
+        return self.prefix
     
 # Create user tokens
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

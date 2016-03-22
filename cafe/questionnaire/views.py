@@ -6,15 +6,12 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
-from questionnaire.rdf import get_definitions
+from questionnaire.rdf import get_definitions, delete_context, run_statements
 
 
 # Create your views here.
 class DefinitionList(viewsets.ViewSet):
     def list(self, request):
-        words = []
-        words.append(Definition('test', 'this is a test'))
-        words.append(Definition('TMD', 'Trauma Medical Director'))
         words = get_definitions()
         if words:
             serializer = DefinitionSerializer(words, many=True)
@@ -63,6 +60,13 @@ class AnswerViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         Answer.objects.filter(user=self.request.user, question=serializer.validated_data['question']).delete()
         serializer.save(user=self.request.user)
+        statements = Statement.objects.filter(question=serializer.validated_data['question'])
+        context = 'pass'
+        run_statements(statements, context, self.request.user)
         
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
+        statements = Statement.objects.filter(question=serializer.validated_data['question'])
+        context = 'pass'
+        delete_context(context)
+        run_statements(statements, context, self.request.user)

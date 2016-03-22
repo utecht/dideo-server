@@ -31,3 +31,9 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
         print(r)
         return False
 
+
+def delete_context(context):
+    pass
+
+def run_statements(statments, context, user):
+    pass
