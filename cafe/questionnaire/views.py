@@ -35,7 +35,7 @@ class QuestionList(viewsets.ReadOnlyModelViewSet):
             for q in questions:
                 q.answer = Answer.objects.filter(user=request.user, question=q)
         else:
-            questions = Question.objects.filter(category=category).order_by('order')
+            questions = Question.objects.filter(category=category).order_by('id')
         serializer = self.get_serializer(questions, many=True)
         return Response(serializer.data)
 
