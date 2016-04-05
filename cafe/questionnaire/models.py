@@ -31,6 +31,7 @@ class Question(models.Model):
     options = models.ManyToManyField('Option', blank=True)
     tags = models.CharField(max_length=100, blank=True, null=True)
     help_text = models.CharField(max_length=500, blank=True, null=True)
+    depends_on = models.ManyToManyField('Question', blank=True)
     def __str__(self):
         return "{} - {}".format(self.id, self.text[:100])
 

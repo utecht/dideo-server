@@ -29,13 +29,13 @@ class QuestionList(viewsets.ReadOnlyModelViewSet):
     authentication_classes = (TokenAuthentication,)
 
     def list(self, request, category):
-        if request.user.is_authenticated():
-            print(request.user)
-            questions = Question.objects.filter(category=category)
-            for q in questions:
+        print(request.user)
+        questions = Question.objects.filter(category=category).order_by('id')
+        for q in questions:
+            if request.user.is_authenticated():
                 q.answer = Answer.objects.filter(user=request.user, question=q)
-        else:
-            questions = Question.objects.filter(category=category).order_by('id')
+            else:
+                q.answer = Answer.objects.none()
         serializer = self.get_serializer(questions, many=True)
         return Response(serializer.data)
 

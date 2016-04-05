@@ -4,7 +4,7 @@ from questionnaire.models import Question
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    filter_horizontal = ['options']
+    filter_horizontal = ['options', 'depends_on']
 
 
 # Register your models here.

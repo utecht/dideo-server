@@ -9,7 +9,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text')
+        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text', 'depends_on')
         depth = 1
 
 class AnswerSerializer(serializers.ModelSerializer):
