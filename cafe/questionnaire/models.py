@@ -33,13 +33,13 @@ class Question(models.Model):
     help_text = models.CharField(max_length=500, blank=True, null=True)
     depends_on = models.ManyToManyField('Question', blank=True)
 
-    def enabled(self, user):
+    def disabled(self, user):
         if user.is_authenticated():
             for question in self.depends_on.all():
-                for answer in question.answer.filter(user=user):
-                    if answer.yesno == False:
-                        return False
-        return True
+                answer = question.answer.get(user=user)
+                if answer.yesno == False:
+                    return True
+        return False
 
     def __str__(self):
         return "{} - {}".format(self.id, self.text[:100])
