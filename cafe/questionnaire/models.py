@@ -36,9 +36,9 @@ class Question(models.Model):
     def disabled(self, user):
         if user.is_authenticated():
             for question in self.depends_on.all():
-                answer = question.answer.get(user=user)
-                if answer.yesno == False:
-                    return True
+                for answer in question.answer.filter(user=user):
+                    if answer.yesno == False:
+                        return True
         return False
 
     def __str__(self):
