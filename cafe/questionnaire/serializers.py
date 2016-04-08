@@ -7,9 +7,15 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 class QuestionSerializer(serializers.ModelSerializer):
+    enabled = serializers.SerializerMethodField('is_enabled')
+
+    def is_enabled(self, question):
+        user = self.context['request'].user
+        return question.enabled(user)
+
     class Meta:
         model = Question
-        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text', 'depends_on')
+        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text', 'enabled')
         depth = 1
 
 class AnswerSerializer(serializers.ModelSerializer):
