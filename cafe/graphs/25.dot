@@ -1,0 +1,6 @@
+digraph g { node [shape=rectangle];
+"cafe:{user}/trauma_program_manager" -> "cafe:{user}/trauma_program" [label="obo:RO_0002350"]
+"cafe:{user}/trauma_program_manager" -> "obo:NCBITaxon_9606" [label="rdf:type"]
+"cafe:{user}/trauma_program_manager" -> "_:a" [label="obo:BFO_0000053"]
+"_:a" -> "oostt:00000018" [label="rdf:type"]
+}

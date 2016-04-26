@@ -1,0 +1,4 @@
+digraph g { node [shape=rectangle];
+"cafe:{user}/trauma_program" -> "cafe:{user}/trauma_peer_review_committee" [label="obo:BFO_0000051"]
+"cafe:{user}/trauma_peer_review_committee" -> "oostt:00000052" [label="rdf:type"]
+}

@@ -1,0 +1,7 @@
+digraph g { node [shape=rectangle];
+"cafe:{user}/organization" -> "oostt:00000025" [label="obo:BFO_0000053"]
+"cafe:{user}/organization" -> "oostt:00000026" [label="obo:BFO_0000053"]
+"cafe:{user}/organization" -> "oostt:00000027" [label="obo:BFO_0000053"]
+"cafe:{user}/organization" -> "oostt:00000031" [label="obo:BFO_0000053"]
+"cafe:{user}/organization" -> "oostt:00000032" [label="obo:BFO_0000053"]
+}
