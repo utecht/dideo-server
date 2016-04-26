@@ -30,7 +30,7 @@ class QuestionList(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, category):
         print(request.user)
-        questions = Question.objects.filter(category=category).order_by('id')
+        questions = Question.objects.filter(category=category).order_by('order')
         for q in questions:
             if request.user.is_authenticated():
                 q.answer = Answer.objects.filter(user=request.user, question=q)
