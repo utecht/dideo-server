@@ -20,7 +20,7 @@ class DefinitionList(viewsets.ViewSet):
             return Response()
 
 class CategoryList(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('order')
     serializer_class = CategorySerializer
     
 class QuestionList(viewsets.ReadOnlyModelViewSet):
