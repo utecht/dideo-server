@@ -42,6 +42,8 @@ class Command(BaseCommand):
         subject = self.humanize(statement.subject, statement.question)
         obj = self.humanize(statement.obj, statement.question)
         predicate = self.humanize(statement.predicate, statement.question)
+        if statement.choice:
+            predicate += "\n{}".format(statement.choice)
         return '"{}" -> "{}" [label="{}"]\n'.format(
                                             subject,
                                             obj,

@@ -1,8 +1,13 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"cafe:{user}/organization" -> "oostt:00000025" [label="is_bearer_of"]
-"cafe:{user}/organization" -> "oostt:00000026" [label="is_bearer_of"]
-"cafe:{user}/organization" -> "oostt:00000027" [label="is_bearer_of"]
-"cafe:{user}/organization" -> "oostt:00000031" [label="is_bearer_of"]
-"cafe:{user}/organization" -> "oostt:00000032" [label="is_bearer_of"]
+"cafe:{user}/organization" -> "oostt:00000025" [label="is_bearer_of
+Level I Trauma Center"]
+"cafe:{user}/organization" -> "oostt:00000026" [label="is_bearer_of
+Level II Trauma Center"]
+"cafe:{user}/organization" -> "oostt:00000027" [label="is_bearer_of
+Level III Trauma Center"]
+"cafe:{user}/organization" -> "oostt:00000031" [label="is_bearer_of
+Level IV Trauma Center"]
+"cafe:{user}/organization" -> "oostt:00000032" [label="is_bearer_of
+Pediatric Trauma Center"]
 }

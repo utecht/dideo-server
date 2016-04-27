@@ -1,0 +1,51 @@
+digraph g { node [shape=rectangle];
+graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
+"cafe:{user}/trauma_program" -> "_:em" [label="obo:RO_0002351
+Emergency Medicine"]
+"_:em" -> "obo:NCBITaxon_9606" [label="rdf:type
+Emergency Medicine"]
+"_:em" -> "_:emr" [label="is_bearer_of
+Emergency Medicine"]
+"_:emr" -> "oostt:00000066" [label="rdf:type
+Emergency Medicine"]
+"cafe:{user}/trauma_program" -> "_:orth" [label="obo:RO_0002351
+Orthopedics"]
+"_:orth" -> "obo:NCBITaxon_9606" [label="rdf:type
+Orthopedics"]
+"_:orth" -> "_:orthr" [label="is_bearer_of
+Orthopedics"]
+"_:orthr" -> "oostt:00000067" [label="rdf:type
+Orthopedics"]
+"cafe:{user}/trauma_program" -> "_:ns" [label="obo:RO_0002351
+Neurosurgery"]
+"_:ns" -> "obo:NCBITaxon_9606" [label="rdf:type
+Neurosurgery"]
+"_:ns" -> "_:nsr" [label="is_bearer_of
+Neurosurgery"]
+"_:nsr" -> "oostt:00000068" [label="rdf:type
+Neurosurgery"]
+"cafe:{user}/trauma_program" -> "_:an" [label="obo:RO_0002351
+Anesthesiology"]
+"_:an" -> "obo:NCBITaxon_9606" [label="rdf:type
+Anesthesiology"]
+"_:an" -> "_:anr" [label="is_bearer_of
+Anesthesiology"]
+"_:anr" -> "oostt:00000048" [label="rdf:type
+Anesthesiology"]
+"cafe:{user}/trauma_program" -> "_:cc" [label="obo:RO_0002351
+Critical Care"]
+"_:cc" -> "obo:NCBITaxon_9606" [label="rdf:type
+Critical Care"]
+"_:cc" -> "_:ccr" [label="is_bearer_of
+Critical Care"]
+"_:ccr" -> "oostt:00000069" [label="rdf:type
+Critical Care"]
+"cafe:{user}/trauma_program" -> "_:ra" [label="obo:RO_0002351
+Radiology"]
+"_:ra" -> "obo:NCBITaxon_9606" [label="rdf:type
+Radiology"]
+"_:ra" -> "_:rar" [label="is_bearer_of
+Radiology"]
+"_:rar" -> "oostt:00000070" [label="rdf:type
+Radiology"]
+}
