@@ -1,6 +1,7 @@
 digraph g { node [shape=rectangle];
-"cafe:{user}/trauma_medical_director" -> "cafe:{user}/trauma_program" [label="obo:RO_0002350"]
+graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
+"cafe:{user}/trauma_medical_director" -> "cafe:{user}/trauma_program" [label="member_of"]
 "cafe:{user}/trauma_medical_director" -> "obo:NCBITaxon_9606" [label="rdf:type"]
-"cafe:{user}/trauma_medical_director" -> "_:a" [label="obo:BFO_0000053"]
+"cafe:{user}/trauma_medical_director" -> "_:a" [label="is_bearer_of"]
 "_:a" -> "oostt:00000021" [label="rdf:type"]
 }

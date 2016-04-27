@@ -1,6 +1,7 @@
 digraph g { node [shape=rectangle];
-"_:a" -> "cafe:{user}/trauma_program" [label="obo:RO_0002350"]
+graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
+"_:a" -> "cafe:{user}/trauma_program" [label="member_of"]
 "_:a" -> "obo:NCBITaxon_9606" [label="rdf:type"]
-"_:a" -> "_:b" [label="obo:RO_0000056"]
+"_:a" -> "_:b" [label="participates_in"]
 "_:b" -> "oostt:00000054" [label="rdf:type"]
 }

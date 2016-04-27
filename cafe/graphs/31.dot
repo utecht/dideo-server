@@ -1,0 +1,13 @@
+digraph g { node [shape=rectangle];
+graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
+"cafe:{user}/trauma_program_manager" -> "_:v" [label="is_bearer_of"]
+"_:v" -> "oostt:00000046" [label="rdf:type"]
+"_:v" -> "_:z" [label="oostt:00000045"]
+"_:z" -> "oostt:00000047" [label="rdf:type"]
+"_:z" -> "_:w" [label="inheres_in"]
+"_:w" -> "_:u" [label="is_bearer_of"]
+"_:w" -> "obo:NCBITaxon_9606" [label="rdf:type"]
+"_:u" -> "oostt:00000043" [label="rdf:type"]
+"_:u" -> "oostt:00000021" [label="rdf:type"]
+"_:u" -> "oostt:00000044" [label="rdf:type"]
+}

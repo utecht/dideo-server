@@ -16,6 +16,7 @@ class Command(BaseCommand):
             if statements:
                 with open("graphs/{}.dot".format(question.id), "w") as f:
                     f.write("digraph g { node [shape=rectangle];\n")
+                    f.write("graph [splines=true, nodesep=.5, ranksep=0, overlap=false];\n")
                     for statement in statements:
                         f.write(self.parse(statement))
                     f.write("}")
@@ -29,6 +30,8 @@ class Command(BaseCommand):
                 'obo:IAO_0000136': 'is_about',
                 'obo:BFO_0000050': 'part_of',
                 'obo:RO_0002350': 'member_of',
+                'obo:RO_0000059': 'concretizes',
+                'obo:BFO_0000055': 'realizes',
                 }
         for key in predicates:
             statement = statement.replace(key, predicates[key])

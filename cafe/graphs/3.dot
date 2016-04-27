@@ -1,9 +1,10 @@
 digraph g { node [shape=rectangle];
+graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
 "_:w" -> "obo:IAO_0021002" [label="rdf:type"]
 "_:x" -> "_:w" [label="obo:OBI_0000312"]
 "_:v" -> "oostt:00000055" [label="rdf:type"]
-"_:v" -> "cafe:{user}/organization" [label="obo:BFO_0000050"]
-"_:v" -> "_:w" [label="obo:RO_0000056"]
-"_:x" -> "cafe:{user}/trauma_program" [label="obo:IAO_0000136"]
+"_:v" -> "cafe:{user}/organization" [label="part_of"]
+"_:v" -> "_:w" [label="participates_in"]
+"_:x" -> "cafe:{user}/trauma_program" [label="is_about"]
 "_:x" -> "oostt:00000056" [label="rdf:type"]
 }

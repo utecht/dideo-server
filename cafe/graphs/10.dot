@@ -1,4 +1,5 @@
 digraph g { node [shape=rectangle];
-"cafe:{user}/trauma_program" -> "cafe:{user}/trauma_program_operational_review_comittee" [label="obo:BFO_0000051"]
+graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
+"cafe:{user}/trauma_program" -> "cafe:{user}/trauma_program_operational_review_comittee" [label="has_part"]
 "cafe:{user}/trauma_program_operational_review_comittee" -> "oostt:00000007" [label="rdf:type"]
 }
