@@ -20,8 +20,26 @@ class Command(BaseCommand):
                         f.write(self.parse(statement))
                     f.write("}")
 
+    def humanize(self, statement, question):
+        predicates = {
+                'obo:BFO_0000053': 'is_bearer_of',
+                'obo:BFO_0000051': 'has_part',
+                'obo:RO_0000052': 'inheres_in',
+                'obo:RO_0000056': 'participates_in',
+                'obo:IAO_0000136': 'is_about',
+                'obo:BFO_0000050': 'part_of',
+                'obo:RO_0002350': 'member_of',
+                }
+        for key in predicates:
+            statement = statement.replace(key, predicates[key])
+        return statement
+
+
     def parse(self, statement):
+        subject = self.humanize(statement.subject, statement.question)
+        obj = self.humanize(statement.obj, statement.question)
+        predicate = self.humanize(statement.predicate, statement.question)
         return '"{}" -> "{}" [label="{}"]\n'.format(
-                                            statement.subject,
-                                            statement.obj,
-                                            statement.predicate)
+                                            subject,
+                                            obj,
+                                            predicate)
