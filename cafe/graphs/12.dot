@@ -1,7 +1,0 @@
-digraph g { node [shape=rectangle];
-graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"cafe:{user}/trauma_medical_director" -> "cafe:{user}/trauma_program" [label="member of"]
-"cafe:{user}/trauma_medical_director" -> "Homo sapiens" [label="rdf:type"]
-"cafe:{user}/trauma_medical_director" -> "_:a" [label="bearer of"]
-"_:a" -> "trauma medical director role" [label="rdf:type"]
-}

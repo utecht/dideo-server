@@ -1,7 +1,0 @@
-digraph g { node [shape=rectangle];
-graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"_:a" -> "cafe:{user}/trauma_program" [label="member of"]
-"_:a" -> "Homo sapiens" [label="rdf:type"]
-"_:a" -> "_:b" [label="participates in"]
-"_:b" -> "preshospital continuing education" [label="rdf:type"]
-}
