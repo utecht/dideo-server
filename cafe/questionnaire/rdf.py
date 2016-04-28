@@ -28,7 +28,6 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
                 elif 'otherdef' in term.keys():
                     defi = term['otherdef']['value']
                 terms.append(Definition(word, defi))
-            terms.append(Definition('trauma medical director', 'The role borne of having the authority to manage all aspects of a trauma service. The role is borne by a physician.'))
             return terms
         except ValueError:
             print('Bad json data')
