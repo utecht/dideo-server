@@ -1,8 +1,8 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"_:x" -> "oostt:00000061" [label="rdf:type"]
+"_:x" -> "authority over trauma care" [label="rdf:type"]
 "_:x" -> "_:y" [label="inheres_in"]
 "_:y" -> "obo:NCBITaxon_9606" [label="rdf:type"]
-"_:y" -> "_:z" [label="member_of"]
-"_:z" -> "oostt:00000060" [label="rdf:type"]
+"_:y" -> "_:z" [label="member of"]
+"_:z" -> "trauma program leadership" [label="rdf:type"]
 }

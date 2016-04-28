@@ -74,9 +74,11 @@ class Statement(models.Model):
         return "{} - {} {} {}".format(self.question, self.subject, self.predicate, self.obj)
 
 class RDFPrefix(models.Model):
-    prefix = models.CharField(max_length=255)
+    short = models.CharField(max_length=10)
+    full = models.CharField(max_length=255)
     def __str__(self):
-        return self.prefix
+        return "{}:{}".format(self.short, self.full)
+
     
 # Create user tokens
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

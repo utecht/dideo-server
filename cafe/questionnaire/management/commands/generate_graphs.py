@@ -1,8 +1,10 @@
 from django.core.management.base import BaseCommand, CommandError
 from questionnaire.models import *
+import requests
 
 class Command(BaseCommand):
     help = 'Generate Graphviz graph files in graphs/'
+    known_uris = {}
 
     def add_arguments(self, parser):
         parser.add_argument('question_id', nargs='*', type=int)
@@ -21,7 +23,32 @@ class Command(BaseCommand):
                         f.write(self.parse(statement))
                     f.write("}")
 
+    def find_label(self, uri):
+        if uri in self.known_uris:
+            return self.known_uris[uri]
+        headers = {'Accept': 'application/rdf+json'}
+        p, specific = uri.split(':')
+        if p == '_':
+            return uri
+        prefix = RDFPrefix.objects.get(short=p)
+        full_uri = uri
+        if(prefix):
+            full_uri = prefix.full.format(specific)
+        url = "http://localhost:8080/openrdf-sesame/repositories/cafe/statements?subj={}".format(full_uri)
+        label = 'http://www.w3.org/2000/01/rdf-schema#label'
+        r = requests.get(url, headers=headers)
+        if r.ok:
+            try:
+                d = r.json()
+                if len(d.keys()) == 1:
+                    self.known_uris[uri] = next(iter(d.values()))[label][0]['value']
+                    return self.known_uris[uri]
+            except Exception as e:
+                return uri
+        return uri
+
     def humanize(self, statement, question):
+        statement = self.find_label(statement)
         predicates = {
                 'obo:BFO_0000053': 'is_bearer_of',
                 'obo:BFO_0000051': 'has_part',

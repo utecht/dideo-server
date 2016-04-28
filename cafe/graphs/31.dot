@@ -1,22 +1,22 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"cafe:{user}/trauma_program_manager" -> "_:v" [label="is_bearer_of"]
-"_:v" -> "oostt:00000046" [label="rdf:type"]
-"_:v" -> "_:z" [label="oostt:00000045"]
-"_:z" -> "oostt:00000047" [label="rdf:type"]
-"_:a" -> "_:aa" [label="is_bearer_of
+"cafe:{user}/trauma_program_manager" -> "_:v" [label="is bearer of"]
+"_:v" -> "reporter role" [label="rdf:type"]
+"_:v" -> "_:z" [label="mutually specifically depends on"]
+"_:z" -> "reportee role" [label="rdf:type"]
+"_:a" -> "_:aa" [label="is bearer of
 Head of Emergency Medicine"]
 "_:a" -> "obo:NCBITaxon_9606" [label="rdf:type
 Head of Emergency Medicine"]
-"_:aa" -> "oostt:00000043" [label="rdf:type
+"_:aa" -> "head of emergency medicine department role" [label="rdf:type
 Head of Emergency Medicine"]
-"_:bb" -> "oostt:00000033" [label="rdf:type
+"_:bb" -> "level V trauma center role" [label="rdf:type
 Trauma Medical Director"]
-"_:cc" -> "oostt:00000034" [label="rdf:type
+"_:cc" -> "trauma center reverification" [label="rdf:type
 Nurse Executive"]
-"_:b" -> "_:bb" [label="is_bearer_of
+"_:b" -> "_:bb" [label="is bearer of
 Trauma Medical Director"]
-"_:c" -> "_:cc" [label="is_bearer_of
+"_:c" -> "_:cc" [label="is bearer of
 Nurse Executive"]
 "_:b" -> "obo:NCBITaxon_9606" [label="rdf:type
 Trauma Medical Director"]
