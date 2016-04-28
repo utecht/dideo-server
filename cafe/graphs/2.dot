@@ -1,9 +1,9 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"_:y" -> "cafe:{user}/organization" [label="inheres_in"]
+"_:y" -> "cafe:{user}/organization" [label="inheres in"]
 "_:y" -> "subordinate role" [label="rdf:type"]
 "_:x" -> "_:y" [label="mutually specifically depends on"]
-"_:x" -> "cafe:{user}/hospital_governing_body" [label="inheres_in"]
+"_:x" -> "cafe:{user}/hospital_governing_body" [label="inheres in"]
 "_:x" -> "authority role" [label="rdf:type"]
 "cafe:{user}/hospital_governing_body" -> "_:u" [label="is bearer of"]
 "_:u" -> "hospital governing body role" [label="rdf:type"]

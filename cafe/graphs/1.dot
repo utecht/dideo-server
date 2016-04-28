@@ -1,5 +1,5 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"cafe:{user}/organization" -> "cafe:{user}/trauma_program" [label="has_part"]
+"cafe:{user}/organization" -> "cafe:{user}/trauma_program" [label="has part"]
 "cafe:{user}/trauma_program" -> "trauma program" [label="rdf:type"]
 }

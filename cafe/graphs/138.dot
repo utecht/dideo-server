@@ -28,12 +28,12 @@ Chief Executive Officer"]
 Chief Medical Officer"]
 "_:d" -> "obo:NCBITaxon_9606" [label="rdf:type
 Head of Clinical Services"]
-"_:z" -> "_:b" [label="inheres_in
+"_:z" -> "_:b" [label="inheres in
 Chief Executive Officer"]
-"_:z" -> "_:c" [label="inheres_in
+"_:z" -> "_:c" [label="inheres in
 Chief Executive Officer"]
-"_:z" -> "_:d" [label="inheres_in
+"_:z" -> "_:d" [label="inheres in
 Head of Clinical Services"]
-"_:z" -> "_:a" [label="inheres_in
+"_:z" -> "_:a" [label="inheres in
 Hospital Board"]
 }

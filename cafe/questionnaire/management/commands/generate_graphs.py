@@ -48,22 +48,7 @@ class Command(BaseCommand):
         return uri
 
     def humanize(self, statement, question):
-        statement = self.find_label(statement)
-        predicates = {
-                'obo:BFO_0000053': 'is_bearer_of',
-                'obo:BFO_0000051': 'has_part',
-                'obo:RO_0000052': 'inheres_in',
-                'obo:RO_0000056': 'participates_in',
-                'obo:IAO_0000136': 'is_about',
-                'obo:BFO_0000050': 'part_of',
-                'obo:RO_0002350': 'member_of',
-                'obo:RO_0000059': 'concretizes',
-                'obo:BFO_0000055': 'realizes',
-                }
-        for key in predicates:
-            statement = statement.replace(key, predicates[key])
-        return statement
-
+        return self.find_label(statement)
 
     def parse(self, statement):
         subject = self.humanize(statement.subject, statement.question)

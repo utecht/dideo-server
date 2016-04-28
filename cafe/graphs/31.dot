@@ -22,10 +22,10 @@ Nurse Executive"]
 Trauma Medical Director"]
 "_:c" -> "obo:NCBITaxon_9606" [label="rdf:type
 Nurse Executive"]
-"_:z" -> "_:b" [label="inheres_in
+"_:z" -> "_:b" [label="inheres in
 Trauma Medical Director"]
-"_:z" -> "_:c" [label="inheres_in
+"_:z" -> "_:c" [label="inheres in
 Nurse Executive"]
-"_:z" -> "_:a" [label="inheres_in
+"_:z" -> "_:a" [label="inheres in
 Head of Emergency Medicine"]
 }
