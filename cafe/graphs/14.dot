@@ -1,9 +1,9 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
 "cafe:{user}/trauma_medical_director" -> "_:z" [label="participates in"]
-"_:z" -> "obo:OBI_0000011" [label="rdf:type"]
+"_:z" -> "planned process" [label="rdf:type"]
 "_:z" -> "_:w" [label="realizes"]
-"_:w" -> "obo:BFO_0000017" [label="rdf:type"]
+"_:w" -> "realizable entity" [label="rdf:type"]
 "_:w" -> "cafe:{user}/trauma_on_call_ps" [label="concretizes"]
 "cafe:{user}/trauma_on_call_ps" -> "trauma on call plan specification" [label="rdf:type"]
 }

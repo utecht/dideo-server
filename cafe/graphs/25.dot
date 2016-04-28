@@ -1,7 +1,7 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
 "cafe:{user}/trauma_program_manager" -> "cafe:{user}/trauma_program" [label="member of"]
-"cafe:{user}/trauma_program_manager" -> "obo:NCBITaxon_9606" [label="rdf:type"]
-"cafe:{user}/trauma_program_manager" -> "_:a" [label="is bearer of"]
+"cafe:{user}/trauma_program_manager" -> "Homo sapiens" [label="rdf:type"]
+"cafe:{user}/trauma_program_manager" -> "_:a" [label="bearer of"]
 "_:a" -> "trauma program manager role" [label="rdf:type"]
 }

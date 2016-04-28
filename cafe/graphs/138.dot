@@ -1,12 +1,12 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"cafe:{user}/trauma_medical_director" -> "_:v" [label="is bearer of"]
+"cafe:{user}/trauma_medical_director" -> "_:v" [label="bearer of"]
 "_:v" -> "reporter role" [label="rdf:type"]
 "_:v" -> "_:z" [label="mutually specifically depends on"]
 "_:z" -> "reportee role" [label="rdf:type"]
-"_:a" -> "_:aa" [label="is bearer of
+"_:a" -> "_:aa" [label="bearer of
 Hospital Board"]
-"_:a" -> "obo:OBI_0000245" [label="rdf:type
+"_:a" -> "organization" [label="rdf:type
 Hospital Board"]
 "_:aa" -> "hospital board role" [label="rdf:type
 Hospital Board"]
@@ -16,17 +16,17 @@ Chief Executive Officer"]
 Head of Clinical Services"]
 "_:cc" -> "trauma center reverification" [label="rdf:type
 Chief Medical Officer"]
-"_:b" -> "_:bb" [label="is bearer of
+"_:b" -> "_:bb" [label="bearer of
 Chief Executive Officer"]
-"_:c" -> "_:cc" [label="is bearer of
+"_:c" -> "_:cc" [label="bearer of
 Chief Medical Officer"]
-"_:d" -> "_:dd" [label="is bearer of
+"_:d" -> "_:dd" [label="bearer of
 Head of Clinical Services"]
-"_:b" -> "obo:NCBITaxon_9606" [label="rdf:type
+"_:b" -> "Homo sapiens" [label="rdf:type
 Chief Executive Officer"]
-"_:c" -> "obo:NCBITaxon_9606" [label="rdf:type
+"_:c" -> "Homo sapiens" [label="rdf:type
 Chief Medical Officer"]
-"_:d" -> "obo:NCBITaxon_9606" [label="rdf:type
+"_:d" -> "Homo sapiens" [label="rdf:type
 Head of Clinical Services"]
 "_:z" -> "_:b" [label="inheres in
 Chief Executive Officer"]

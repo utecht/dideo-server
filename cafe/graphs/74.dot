@@ -1,0 +1,17 @@
+digraph g { node [shape=rectangle];
+graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
+"cafe:{user}/trauma_program" -> "_:y" [label="organize"]
+"_:y" -> "trauma care process" [label="rdf:type"]
+"_:y" -> "_:pt" [label="has participant
+Physical Therapist"]
+"_:y" -> "_:ot" [label="has participant
+Occupational Therapist"]
+"_:y" -> "_:rs" [label="has participant
+Rehabilitation Specialist"]
+"_:pt" -> "physical therapist role" [label="bearer of
+Physical Therapist"]
+"_:ot" -> "occupational therapist role" [label="bearer of
+Occupational Therapist"]
+"_:rs" -> "rehabilitation specialist role" [label="bearer of
+Rehabilitation Specialist"]
+}

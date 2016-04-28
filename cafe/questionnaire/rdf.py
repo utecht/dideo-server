@@ -4,23 +4,29 @@ from questionnaire.models import Definition
 def get_definitions():
     query = """
 PREFIX obo: <http://purl.obolibrary.org/obo/>
-    SELECT DISTINCT ?term ?userdef
+    SELECT DISTINCT ?term ?userdef ?otherdef
+    FROM <https://raw.githubusercontent.com/OOSTT/OOSTT/master/oostt.owl>
     WHERE {
       ?class rdf:type owl:Class .
       ?class rdfs:label ?term .
-      ?class obo:OOSTT_00000030 ?userdef .
+      optional {?class obo:OOSTT_00000030 ?userdef . }
+      optional {?class obo:IAO_0000115 ?otherdef . }
 }
     """
     body = {'query': query, 'Accept': 'application/sparql-results+json' }
     headers = {'content-type': 'application/x-www-form-urlencoded'}
-    r = requests.request('POST', 'http://cafe-trauma.com:5000/rdf', data=body, headers=headers)
+    r = requests.request('POST', 'http://localhost:5000/rdf', data=body, headers=headers)
     if r.ok:
         try:
             data = r.json()
             terms = []
             for term in data['results']['bindings']:
                 word = term['term']['value']
-                defi = term['userdef']['value']
+                defi = ''
+                if 'userdef' in term.keys():
+                    defi = term['userdef']['value']
+                elif 'otherdef' in term.keys():
+                    defi = term['otherdef']['value']
                 terms.append(Definition(word, defi))
             terms.append(Definition('trauma medical director', 'The role borne of having the authority to manage all aspects of a trauma service. The role is borne by a physician.'))
             return terms

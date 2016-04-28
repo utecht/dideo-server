@@ -2,7 +2,7 @@ digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
 "_:x" -> "authority over trauma care" [label="rdf:type"]
 "_:x" -> "_:y" [label="inheres in"]
-"_:y" -> "obo:NCBITaxon_9606" [label="rdf:type"]
+"_:y" -> "Homo sapiens" [label="rdf:type"]
 "_:y" -> "_:z" [label="member of"]
 "_:z" -> "trauma program leadership" [label="rdf:type"]
 }
