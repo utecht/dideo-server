@@ -1,26 +1,26 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"cafe:{user}/trauma_medical_director" -> "_:v" [label="is bearer of"]
-"_:v" -> "reporter role" [label="rdf:type"]
-"_:v" -> "_:z" [label="mutually specifically depends on"]
-"_:z" -> "reportee role" [label="rdf:type"]
-"_:a" -> "_:aa" [label="is bearer of
+"cafe:{user}/trauma_medical_director" -> "_:v" [label="obo:RO_0000053"]
+"_:v" -> "oostt:00000046" [label="rdf:type"]
+"_:v" -> "_:z" [label="oostt:00000045"]
+"_:z" -> "oostt:00000047" [label="rdf:type"]
+"_:a" -> "_:aa" [label="obo:RO_0000053
 Hospital Board"]
 "_:a" -> "obo:OBI_0000245" [label="rdf:type
 Hospital Board"]
-"_:aa" -> "hospital board role" [label="rdf:type
+"_:aa" -> "oostt:00000062" [label="rdf:type
 Hospital Board"]
-"_:bb" -> "level V trauma center role" [label="rdf:type
+"_:bb" -> "oostt:00000033" [label="rdf:type
 Chief Executive Officer"]
-"_:dd" -> "trauma center consultation" [label="rdf:type
+"_:dd" -> "oostt:00000035" [label="rdf:type
 Head of Clinical Services"]
-"_:cc" -> "trauma center reverification" [label="rdf:type
+"_:cc" -> "oostt:00000034" [label="rdf:type
 Chief Medical Officer"]
-"_:b" -> "_:bb" [label="is bearer of
+"_:b" -> "_:bb" [label="obo:RO_0000053
 Chief Executive Officer"]
-"_:c" -> "_:cc" [label="is bearer of
+"_:c" -> "_:cc" [label="obo:RO_0000053
 Chief Medical Officer"]
-"_:d" -> "_:dd" [label="is bearer of
+"_:d" -> "_:dd" [label="obo:RO_0000053
 Head of Clinical Services"]
 "_:b" -> "obo:NCBITaxon_9606" [label="rdf:type
 Chief Executive Officer"]
@@ -28,12 +28,12 @@ Chief Executive Officer"]
 Chief Medical Officer"]
 "_:d" -> "obo:NCBITaxon_9606" [label="rdf:type
 Head of Clinical Services"]
-"_:z" -> "_:b" [label="inheres in
+"_:z" -> "_:b" [label="obo:RO_0000052
 Chief Executive Officer"]
-"_:z" -> "_:c" [label="inheres in
+"_:z" -> "_:c" [label="obo:RO_0000052
 Chief Executive Officer"]
-"_:z" -> "_:d" [label="inheres in
+"_:z" -> "_:d" [label="obo:RO_0000052
 Head of Clinical Services"]
-"_:z" -> "_:a" [label="inheres in
+"_:z" -> "_:a" [label="obo:RO_0000052
 Hospital Board"]
 }

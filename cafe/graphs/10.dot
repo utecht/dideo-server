@@ -1,5 +1,5 @@
 digraph g { node [shape=rectangle];
 graph [splines=true, nodesep=.5, ranksep=0, overlap=false];
-"cafe:{user}/trauma_program" -> "cafe:{user}/trauma_program_operational_review_comittee" [label="has part"]
-"cafe:{user}/trauma_program_operational_review_comittee" -> "trauma program operational review committee" [label="rdf:type"]
+"cafe:{user}/trauma_program" -> "cafe:{user}/trauma_program_operational_review_comittee" [label="obo:BFO_0000051"]
+"cafe:{user}/trauma_program_operational_review_comittee" -> "trauma program operational process performance improvement committee" [label="rdf:type"]
 }
