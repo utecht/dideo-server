@@ -8,14 +8,19 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     disabled = serializers.SerializerMethodField('is_disabled')
+    graph = serializers.SerializerMethodField('has_graph')
 
     def is_disabled(self, question):
         user = self.context['request'].user
         return question.disabled(user)
 
+    def has_graph(self, question):
+        s = Statement.objects.filter(question=question)
+        return bool(s)
+
     class Meta:
         model = Question
-        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text', 'disabled')
+        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text', 'disabled', 'graph')
         depth = 1
 
 class AnswerSerializer(serializers.ModelSerializer):
