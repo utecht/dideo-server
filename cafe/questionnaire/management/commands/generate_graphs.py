@@ -10,6 +10,15 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('question_id', nargs='*', type=int)
 
+    def write_graph(self, statements, question):
+        with open("graphs/{}.dot".format(question.id), "w") as f:
+            f.write("digraph g { node [shape=rectangle];\n")
+            f.write("graph [splines=true, nodesep=.5, ranksep=0, overlap=false];\n")
+            for statement in statements:
+                f.write(self.parse(statement))
+            f.write("}")
+        os.system("dot -Tpng graphs/{0}.dot -o static_graphs/{0}.png".format(question.id))
+
     def handle(self, *args, **options):
         questions = Question.objects.all()
         if options['question_id']:
@@ -17,13 +26,7 @@ class Command(BaseCommand):
         for question in questions:
             statements = Statement.objects.filter(question=question)
             if statements:
-                with open("graphs/{}.dot".format(question.id), "w") as f:
-                    f.write("digraph g { node [shape=rectangle];\n")
-                    f.write("graph [splines=true, nodesep=.5, ranksep=0, overlap=false];\n")
-                    for statement in statements:
-                        f.write(self.parse(statement))
-                    f.write("}")
-                os.system("dot -Tpng graphs/{0}.dot -o static_graphs/{0}.png".format(question.id))
+                self.write_graph(statements, question)
 
     def find_label(self, uri):
         if uri in self.known_uris:
