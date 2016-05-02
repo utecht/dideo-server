@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.core.management import call_command
+import re
 
 # Create your models here.
 class Definition():
@@ -45,6 +46,10 @@ class Question(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.id, self.text[:100])
+
+    def only_text(self):
+        return re.sub(r'<([^>]+)\|([^>]+)>', '\\1', self.text)
+
 
 class Option(models.Model):
     text = models.CharField(max_length=200)

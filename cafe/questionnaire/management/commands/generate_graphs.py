@@ -14,6 +14,7 @@ class Command(BaseCommand):
         with open("graphs/{}.dot".format(question.id), "w") as f:
             f.write("digraph g { node [shape=rectangle];\n")
             f.write("graph [splines=true, nodesep=.5, ranksep=0, overlap=false];\n")
+            f.write('labelloc="t";label="#{} {}";\n'.format(question.id, question.only_text()))
             for statement in statements:
                 f.write(self.parse(statement))
             f.write("}")
