@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from questionnaire.models import *
 import requests
+import os
 
 class Command(BaseCommand):
     help = 'Generate Graphviz graph files in graphs/'
@@ -22,6 +23,7 @@ class Command(BaseCommand):
                     for statement in statements:
                         f.write(self.parse(statement))
                     f.write("}")
+                os.system("dot -Tpng graphs/{0}.dot -o static_graphs/{0}.png".format(question.id))
 
     def find_label(self, uri):
         if uri in self.known_uris:
