@@ -10,7 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = ('text', 'check', 'integer', 'yesno', 'question')
+        fields = ('text', 'options', 'integer', 'yesno', 'question')
 
 class UserAnswer(serializers.ModelSerializer):
     # user request to find specific user

@@ -59,7 +59,7 @@ class Option(models.Model):
 
 class Answer(models.Model):
     text = models.CharField(max_length=50, null=True, blank=True)
-    check = models.CommaSeparatedIntegerField(max_length=20, blank=True, null=True)
+    options = models.ManyToManyField('Option', blank=True)
     question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answer')
     integer = models.IntegerField(null=True, blank=True)
     yesno = models.NullBooleanField(null=True, blank=True)
