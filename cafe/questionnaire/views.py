@@ -49,6 +49,22 @@ class AnswerAccessPermission(permissions.BasePermission):
         self.message = "You can only modify your own answers"
         return obj.user == request.user
         
+class UserView(viewsets.ViewSet):
+    authentication_classes = (TokenAuthentication,)
+
+    def get(self, request):
+        if request.user:
+            serializer = UserSerializer(request.user)
+            return Response(serializer.data)
+        else:
+            return Response()
+
+    def list(self, request):
+        if request.user:
+            serializer = UserSerializer(request.user)
+            return Response(serializer.data)
+        else:
+            return Response()
 
 class AnswerViewSet(viewsets.ModelViewSet):
     serializer_class = AnswerSerializer
