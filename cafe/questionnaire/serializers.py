@@ -29,6 +29,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     disabled = serializers.SerializerMethodField('is_disabled')
     graph = serializers.SerializerMethodField('has_graph')
     depends_on = serializers.SerializerMethodField('get_depends')
+    answer = serializers.SerializerMethodField('get_user_answer')
 
     def is_disabled(self, question):
         user = self.context['request'].user
@@ -43,6 +44,18 @@ class QuestionSerializer(serializers.ModelSerializer):
         for d in question.depends_on.all():
             deps.append(d.id)
         return deps
+
+    def get_user_answer(self, question):
+        user = self.context['request'].user
+        if user.is_authenticated():
+            try:
+                answers = Answer.objects.get(question=question, user=user)
+                serializer = AnswerSerializer(answers)
+                if answers:
+                    return serializer.data
+            except Answer.DoesNotExist:
+                return None
+        return None
 
     class Meta:
         model = Question
