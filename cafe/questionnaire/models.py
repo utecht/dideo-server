@@ -94,5 +94,11 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 @receiver(post_save, sender=Statement)
 def generate_graphs(sender, instance=None, created=False, **kwargs):
-    if created and instance:
+    if instance:
         call_command('generate_graphs', str(instance.question.id), verbosity=0)
+
+@receiver(post_save, sender=Answer)
+def add_rdf(sender, instance=None, created=False, **kwargs):
+    if instance:
+        print('Need to add RDF')
+        print(instance)
