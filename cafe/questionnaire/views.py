@@ -1,6 +1,8 @@
 from questionnaire.models import *
 from questionnaire.serializers import *
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
@@ -30,12 +32,12 @@ class QuestionList(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, category):
         print(request.user)
+        if request.user.is_authenticated():
+            if 'survey' not in request.session:
+                s = Survey(user=request.user)
+                s.save()
+                request.session['survey'] = s.id
         questions = Question.objects.filter(category=category).order_by('order')
-        for q in questions:
-            if request.user.is_authenticated():
-                q.answer = Answer.objects.filter(user=request.user, question=q)
-            else:
-                q.answer = Answer.objects.none()
         serializer = self.get_serializer(questions, many=True)
         return Response(serializer.data)
 
@@ -74,8 +76,9 @@ class AnswerViewSet(viewsets.ModelViewSet):
     lookup_fields = ('question', 'user')
 
     def perform_create(self, serializer):
-        Answer.objects.filter(user=self.request.user, question=serializer.validated_data['question']).delete()
-        serializer.save(user=self.request.user)
+        survey = Survey.objects.get(id=self.request.session['survey'])
+        Answer.objects.filter(survey=survey, question=serializer.validated_data['question']).delete()
+        serializer.save(survey=survey)
         statements = Statement.objects.filter(question=serializer.validated_data['question'])
         context = 'pass'
         run_statements(statements, context, self.request.user)
@@ -86,3 +89,13 @@ class AnswerViewSet(viewsets.ModelViewSet):
         context = 'pass'
         delete_context(context)
         run_statements(statements, context, self.request.user)
+
+@csrf_exempt
+def new_survey(request):
+    if request.user.is_authenticated():
+        s = Survey(user=request.user)
+        s.save()
+        request.session['survey'] = s.id
+        print("New Survey")
+        return HttpResponse(True)
+    return HttpResponse(False)

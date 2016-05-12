@@ -36,10 +36,10 @@ class Question(models.Model):
     help_text = models.CharField(max_length=500, blank=True, null=True)
     depends_on = models.ManyToManyField('Question', blank=True)
 
-    def disabled(self, user):
-        if user.is_authenticated():
+    def disabled(self, survey):
+        if survey.user.is_authenticated():
             for question in self.depends_on.all():
-                for answer in question.answer.filter(user=user):
+                for answer in question.answer.filter(survey=survey):
                     if answer.yesno == False:
                         return True
         return False
@@ -57,17 +57,22 @@ class Option(models.Model):
     def __str__(self):
         return self.text
 
+class Survey(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return "{} - {}".format(self.user, self.id)
+
 class Answer(models.Model):
     text = models.CharField(max_length=50, null=True, blank=True)
     options = models.ManyToManyField('Option', blank=True)
     question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answer')
     integer = models.IntegerField(null=True, blank=True)
     yesno = models.NullBooleanField(null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
     class Meta:
-        unique_together = ('user', 'question')
+        unique_together = ('survey', 'question')
     def __str__(self):
-        return "{} - {}".format(self.user, self.question.id)
+        return "{} - {}".format(self.survey, self.question.id)
 
 class Statement(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE)

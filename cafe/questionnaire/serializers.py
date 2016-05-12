@@ -7,6 +7,11 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name')
 
+class SurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Survey
+        fields = ('id', 'user')
+
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
@@ -32,8 +37,9 @@ class QuestionSerializer(serializers.ModelSerializer):
     answer = serializers.SerializerMethodField('get_user_answer')
 
     def is_disabled(self, question):
-        user = self.context['request'].user
-        return question.disabled(user)
+        s = self.context['request'].session['survey']
+        survey = Survey.objects.get(id=s)
+        return question.disabled(survey)
 
     def has_graph(self, question):
         s = Statement.objects.filter(question=question)
@@ -49,7 +55,9 @@ class QuestionSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         if user.is_authenticated():
             try:
-                answers = Answer.objects.get(question=question, user=user)
+                s = self.context['request'].session['survey']
+                survey = Survey.objects.get(id=s)
+                answers = Answer.objects.get(question=question, survey=survey)
                 serializer = AnswerSerializer(answers)
                 if answers:
                     return serializer.data

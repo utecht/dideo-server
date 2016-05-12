@@ -28,14 +28,15 @@ PREFIX obo: <http://purl.obolibrary.org/obo/>
                 elif 'otherdef' in term.keys():
                     defi = term['otherdef']['value']
                 terms.append(Definition(word, defi))
+            terms.append(Definition("hello", "world"))
             return terms
         except ValueError:
             print('Bad json data')
             print(r.content)
-            return False
+            return [Definition('error', 'error')]
     else:
         print(r)
-        return False
+        return [Definition('error', 'error')]
 
 
 def delete_context(context):
