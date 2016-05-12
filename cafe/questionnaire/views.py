@@ -2,8 +2,8 @@ from questionnaire.models import *
 from questionnaire.serializers import *
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
@@ -90,12 +90,14 @@ class AnswerViewSet(viewsets.ModelViewSet):
         delete_context(context)
         run_statements(statements, context, self.request.user)
 
-@csrf_exempt
-def new_survey(request):
-    if request.user.is_authenticated():
-        s = Survey(user=request.user)
-        s.save()
-        request.session['survey'] = s.id
-        print("New Survey")
-        return HttpResponse(True)
-    return HttpResponse("User not authenticated\n{}".format(request.user.is_authenticated()))
+class NewSurveyView(APIView):
+    authentication_classes = (TokenAuthentication,)
+
+    def get(self, request):
+        if request.user.is_authenticated():
+            s = Survey(user=request.user)
+            s.save()
+            request.session['survey'] = s.id
+            print("New Survey")
+            return Response(True)
+        return Response("User not authenticated\n{}".format(request.user.is_authenticated()))

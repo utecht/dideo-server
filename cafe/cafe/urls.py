@@ -32,5 +32,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', views.obtain_auth_token),
-    url(r'^new_survey/', new_survey),
+    url(r'^new_survey/', NewSurveyView.as_view()),
 ]
