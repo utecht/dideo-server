@@ -98,4 +98,4 @@ def new_survey(request):
         request.session['survey'] = s.id
         print("New Survey")
         return HttpResponse(True)
-    return HttpResponse(False)
+    return HttpResponse("User not authenticated\n{}".format(request.user.is_authenticated()))
