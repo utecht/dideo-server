@@ -22,6 +22,7 @@ class Category(models.Model):
 
 QUESTION_TYPES = (('combo', 'Combo Box'),
                   ('check', 'Check Boxes'),
+                  ('drugs', 'Drugs'),
                   ('text', 'Text Field'),
                   ('int', 'Integer Field'),
                   ('bool', 'Yes or No'))
