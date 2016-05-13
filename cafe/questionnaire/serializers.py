@@ -37,9 +37,12 @@ class QuestionSerializer(serializers.ModelSerializer):
     answer = serializers.SerializerMethodField('get_user_answer')
 
     def is_disabled(self, question):
-        s = self.context['request'].session['survey']
-        survey = Survey.objects.get(id=s)
-        return question.disabled(survey)
+        if 'survey' in self.context['request'].session:
+            s = self.context['request'].session['survey']
+            survey = Survey.objects.get(id=s)
+            return question.disabled(survey)
+        else:
+            return False
 
     def has_graph(self, question):
         s = Statement.objects.filter(question=question)
