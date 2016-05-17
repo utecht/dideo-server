@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
 from questionnaire.rdf import get_definitions, delete_context, run_statements
+from rest_framework import exceptions
 
 
 # Create your views here.
@@ -24,7 +25,19 @@ class DefinitionList(viewsets.ViewSet):
 class CategoryList(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all().order_by('order')
     serializer_class = CategorySerializer
-    
+
+class SurveyList(viewsets.ReadOnlyModelViewSet):
+    serializer_class = SurveySerializer
+    authentication_classes = (TokenAuthentication,)
+
+    def list(self, request):
+        if request.user.is_authenticated():
+            if 'survey' in request.session:
+                survey = Survey.objects.get(pk=request.session['survey'])
+                serializer = self.get_serializer(survey)
+                return Response(serializer.data)
+        return Response()
+
 class QuestionList(viewsets.ReadOnlyModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -67,6 +80,21 @@ class UserView(viewsets.ViewSet):
             return Response(serializer.data)
         else:
             return Response()
+        
+class SurveyViewSet(viewsets.ModelViewSet):
+    serializer_class = SurveySerializer
+    queryset = Survey.objects.all()
+    permission_classes = (AnswerAccessPermission,)
+    authentication_classes = (TokenAuthentication,)
+    lookup_fields = ('user')
+
+    def perform_create(self, serializer):
+        if 'survey' not in self.request.session:
+            raise exceptions.APIException(detail="No session exists")
+        else:
+            survey = Survey.objects.get(pk=self.request.session['survey'])
+            survey.name = serializer.validated_data['name']
+            survey.save()
 
 class AnswerViewSet(viewsets.ModelViewSet):
     serializer_class = AnswerSerializer
@@ -76,6 +104,9 @@ class AnswerViewSet(viewsets.ModelViewSet):
     lookup_fields = ('question', 'user')
 
     def perform_create(self, serializer):
+        if 'survey' not in self.request.session:
+            raise exceptions.APIException(detail="No session exists")
+            return
         survey = Survey.objects.get(id=self.request.session['survey'])
         Answer.objects.filter(survey=survey, question=serializer.validated_data['question']).delete()
         serializer.save(survey=survey)
@@ -100,4 +131,17 @@ class NewSurveyView(APIView):
             request.session['survey'] = s.id
             print("New Survey")
             return Response(True)
+        return Response("User not authenticated\n{}".format(request.user.is_authenticated()))
+
+class ChangeSurveyView(APIView):
+    authentication_classes = (TokenAuthentication,)
+
+    def get(self, request, survey_id):
+        if request.user.is_authenticated():
+            s = Survey.objects.get(pk=survey_id) 
+            if(s):
+                request.session['survey'] = s.id
+                return Response(True)
+            else:
+                return Response("Survey {} not found".format(survey_id))
         return Response("User not authenticated\n{}".format(request.user.is_authenticated()))

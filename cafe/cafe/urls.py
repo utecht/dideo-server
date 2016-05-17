@@ -23,8 +23,10 @@ admin.autodiscover()
 
 router = routers.DefaultRouter()
 router.register(r'categories', CategoryList)
+router.register(r'survey', SurveyList, base_name='s')
 router.register(r'questions/(?P<category>[0-9]+)', QuestionList)
 router.register(r'answer', AnswerViewSet)
+router.register(r'surveys', SurveyViewSet)
 router.register(r'user', UserView, base_name='user')
 router.register(r'definitions', DefinitionList, base_name='d')
 
@@ -33,4 +35,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', views.obtain_auth_token),
     url(r'^new_survey/', NewSurveyView.as_view()),
+    url(r'^change_survey/(?P<survey_id>[0-9]+)', ChangeSurveyView.as_view()),
 ]
