@@ -10,7 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
-        fields = ('id', 'user')
+        fields = ('id', 'name')
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:

@@ -60,8 +60,9 @@ class Option(models.Model):
 
 class Survey(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
     def __str__(self):
-        return "{} - {}".format(self.user, self.id)
+        return "{} - {} - {}".format(self.user, self.id, self.name)
 
 class Answer(models.Model):
     text = models.CharField(max_length=50, null=True, blank=True)
