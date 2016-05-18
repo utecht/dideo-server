@@ -12,6 +12,11 @@ class SurveySerializer(serializers.ModelSerializer):
         model = Survey
         fields = ('id', 'name')
 
+class ChebiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chebi
+        fields = ('accession', 'name')
+
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer

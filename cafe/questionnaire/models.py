@@ -92,6 +92,12 @@ class RDFPrefix(models.Model):
     def __str__(self):
         return "{}:{}".format(self.short, self.full)
 
+class Chebi(models.Model):
+    accession = models.CharField(max_length=30)
+    name = models.TextField()
+    def __str__(self):
+        return self.accession
+
     
 # Create user tokens
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

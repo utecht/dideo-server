@@ -38,6 +38,15 @@ class SurveyList(viewsets.ReadOnlyModelViewSet):
                 return Response(serializer.data)
         return Response()
 
+class ChebiList(viewsets.ReadOnlyModelViewSet):
+    queryset = Chebi.objects.all()
+    serializer_class = ChebiSerializer
+
+    def list(self, request, partial):
+        drugs = Chebi.objects.filter(name__contains=partial)[:10]
+        return Response(self.get_serializer(drugs, many=True).data)
+
+
 class QuestionList(viewsets.ReadOnlyModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
