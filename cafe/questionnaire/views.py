@@ -33,9 +33,12 @@ class SurveyList(viewsets.ReadOnlyModelViewSet):
     def list(self, request):
         if request.user.is_authenticated():
             if 'survey' in request.session:
-                survey = Survey.objects.get(pk=request.session['survey'])
-                serializer = self.get_serializer(survey)
-                return Response(serializer.data)
+                try:
+                    survey = Survey.objects.get(pk=request.session['survey'])
+                    serializer = self.get_serializer(survey)
+                    return Response(serializer.data)
+                except:
+                    return Response()
         return Response()
 
 class ChebiList(viewsets.ReadOnlyModelViewSet):
@@ -144,6 +147,23 @@ class NewSurveyView(APIView):
 
 class ChangeSurveyView(APIView):
     authentication_classes = (TokenAuthentication,)
+
+    def delete(self, request, survey_id):
+        if request.user.is_authenticated():
+            s = Survey.objects.get(pk=survey_id) 
+            if(s):
+                if s.id == request.session['survey']:
+                    request.session['survey'] = None
+                    s.delete()
+                    new_survey = Survey.objects.first()
+                    if new_survey:
+                        request.session['survey'] = new_survey.id
+                else:
+                    s.delete()
+                return Response(True)
+            else:
+                return Response("Survey {} not found".format(survey_id))
+        return Response("User not authenticated\n{}".format(request.user.is_authenticated()))
 
     def get(self, request, survey_id):
         if request.user.is_authenticated():
