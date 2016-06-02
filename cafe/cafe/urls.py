@@ -37,4 +37,5 @@ urlpatterns = [
     url(r'^auth/', views.obtain_auth_token),
     url(r'^new_survey/', NewSurveyView.as_view()),
     url(r'^change_survey/(?P<survey_id>[0-9]+)', ChangeSurveyView.as_view()),
+    url(r'^rdf_survey/(?P<survey_id>[0-9]+)', RDFView.as_view()),
 ]
