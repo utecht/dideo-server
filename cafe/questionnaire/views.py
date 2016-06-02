@@ -8,7 +8,7 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import permissions
-from questionnaire.rdf import get_definitions, delete_context, run_statements
+from questionnaire.rdf import get_definitions, delete_context, run_statements, rdf_from_survey
 from rest_framework import exceptions
 
 
@@ -174,3 +174,14 @@ class ChangeSurveyView(APIView):
             else:
                 return Response("Survey {} not found".format(survey_id))
         return Response("User not authenticated\n{}".format(request.user.is_authenticated()))
+
+class RDFView(APIView):
+    authentication_classes = (TokenAuthentication,)
+
+    def get(self, request, survey_id):
+        survey = Survey.objects.get(pk=survey_id)
+        if request.user.is_authenticated() and survey.user == request.user:
+            rdf = rdf_from_survey(survey)
+            return HttpResponse(rdf, content_type="rdf/xml")
+        else:
+            return Response('Incorrect User', status=403)
