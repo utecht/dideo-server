@@ -134,7 +134,20 @@ def get_triples(answer, prefixes, bnodes):
                     ret.append((s, p, o))
 
     elif q_type == 'int' or q_type == 'text':
-        pass
+        for statement in Statement.objects.filter(question=answer.question):
+            if statement.value:
+                s = get_uri(statement.subject, prefixes, bnodes)
+                p = get_uri(statement.predicate, prefixes, bnodes)
+                if q_type == 'int':
+                    o = Literal(answer.integer)
+                else:
+                    o = Literal(answer.text)
+                ret.append((s, p, o))
+            else:
+                s = get_uri(statement.subject, prefixes, bnodes)
+                p = get_uri(statement.predicate, prefixes, bnodes)
+                o = get_uri(statement.obj, prefixes, bnodes)
+                ret.append((s, p, o))
         
 
     return ret
