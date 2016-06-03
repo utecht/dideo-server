@@ -162,6 +162,7 @@ def rdf_from_survey(survey):
     prefixes = {}
     for prefix in RDFPrefix.objects.all():
         prefixes[prefix.short] = Namespace(prefix.full)
+        g.bind(prefix.short, prefixes[prefix.short])
 
     # Generate triples for answers
     for answer in Answer.objects.filter(survey=survey):
