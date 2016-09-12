@@ -105,30 +105,35 @@ def get_triples(answer, prefixes, bnodes):
         if answer.text:
             chebi = Chebi.objects.get(name=answer.text)
             chebi_text = "obo:CHEBI_{}".format(chebi.accession.split(':')[1])
-            survey = '_:study'
+            survey = '_:assay'
             drug_product = 'obo:DRON_00000005'
             rdf_type = 'rdf:type'
             bearer_of = 'obo:RO_0000053'
             specified_input = 'obo:OBI_0000293'
             object_role = 'obo:DIDEO_00000012'
             precip_role = 'obo:DIDEO_00000013'
+            drug_bnode = "_:drug{}".format(answer.id)
             s = get_uri(survey, prefixes, bnodes)
             p = get_uri(specified_input, prefixes, bnodes)
-            o = get_uri(chebi_text, prefixes, bnodes)
+            o = get_uri(drug_bnode, prefixes, bnodes)
             ret.append((s, p, o))
-            s = get_uri(chebi_text, prefixes, bnodes)
+            s = get_uri(drug_bnode, prefixes, bnodes)
             p = get_uri(rdf_type, prefixes, bnodes)
             o = get_uri(drug_product, prefixes, bnodes)
+            ret.append((s, p, o))
+            s = get_uri(drug_bnode, prefixes, bnodes)
+            p = get_uri(rdf_type, prefixes, bnodes)
+            o = get_uri(chebi_text, prefixes, bnodes)
             ret.append((s, p, o))
             print(answer.yesno)
             if answer.yesno is not None:
                 if answer.yesno:
-                    s = get_uri(chebi_text, prefixes, bnodes)
+                    s = get_uri(drug_bnode, prefixes, bnodes)
                     p = get_uri(bearer_of, prefixes, bnodes)
                     o = get_uri(object_role, prefixes, bnodes)
                     ret.append((s, p, o))
                 else:
-                    s = get_uri(chebi_text, prefixes, bnodes)
+                    s = get_uri(drug_bnode, prefixes, bnodes)
                     p = get_uri(bearer_of, prefixes, bnodes)
                     o = get_uri(precip_role, prefixes, bnodes)
                     ret.append((s, p, o))
