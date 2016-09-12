@@ -128,14 +128,22 @@ def get_triples(answer, prefixes, bnodes):
             print(answer.yesno)
             if answer.yesno is not None:
                 if answer.yesno:
-                    s = get_uri(drug_bnode, prefixes, bnodes)
-                    p = get_uri(bearer_of, prefixes, bnodes)
+                    s = get_uri('_:obj_role', prefixes, bnodes)
+                    p = get_uri(rdf_type, prefixes, bnodes)
                     o = get_uri(object_role, prefixes, bnodes)
                     ret.append((s, p, o))
-                else:
                     s = get_uri(drug_bnode, prefixes, bnodes)
                     p = get_uri(bearer_of, prefixes, bnodes)
+                    o = get_uri('_:obj_role', prefixes, bnodes)
+                    ret.append((s, p, o))
+                else:
+                    s = get_uri('_:precip_role', prefixes, bnodes)
+                    p = get_uri(rdf_type, prefixes, bnodes)
                     o = get_uri(precip_role, prefixes, bnodes)
+                    ret.append((s, p, o))
+                    s = get_uri(drug_bnode, prefixes, bnodes)
+                    p = get_uri(bearer_of, prefixes, bnodes)
+                    o = get_uri('_:precip_role', prefixes, bnodes)
                     ret.append((s, p, o))
 
     elif q_type == 'int' or q_type == 'text':
