@@ -82,7 +82,15 @@ def get_triples(answer, prefixes, bnodes):
     q_type = answer.question.q_type
     if q_type == 'bool':
         if answer.yesno:
-            for statement in Statement.objects.filter(question=answer.question):
+            for statement in Statement.objects.filter(question=answer.question,
+                                                      value=True):
+                s = get_uri(statement.subject, prefixes, bnodes)
+                p = get_uri(statement.predicate, prefixes, bnodes)
+                o = get_uri(statement.obj, prefixes, bnodes)
+                ret.append((s, p, o))
+        else:
+            for statement in Statement.objects.filter(question=answer.question,
+                                                      value=False):
                 s = get_uri(statement.subject, prefixes, bnodes)
                 p = get_uri(statement.predicate, prefixes, bnodes)
                 o = get_uri(statement.obj, prefixes, bnodes)
@@ -161,10 +169,10 @@ def get_triples(answer, prefixes, bnodes):
                 p = get_uri(statement.predicate, prefixes, bnodes)
                 o = get_uri(statement.obj, prefixes, bnodes)
                 ret.append((s, p, o))
-        
+
 
     return ret
-        
+
 
 def rdf_from_survey(survey):
     # first clear graph
