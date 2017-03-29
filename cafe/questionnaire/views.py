@@ -66,6 +66,16 @@ class QuestionList(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(questions, many=True)
         return Response(serializer.data)
 
+class QuestionView(viewsets.ViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    authentication_classes = (TokenAuthentication,)
+
+    def retrieve(self, request, pk):
+        question = Question.objects.get(pk=pk)
+        serializer = QuestionSerializer(question, context={'request': request})
+        return Response(serializer.data)
+
 class AnswerAccessPermission(permissions.BasePermission):
     message = 'Must be logged in to submit answers'
 
@@ -75,7 +85,7 @@ class AnswerAccessPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         self.message = "You can only modify your own answers"
         return obj.user == request.user
-        
+
 class UserView(viewsets.ViewSet):
     authentication_classes = (TokenAuthentication,)
 
@@ -92,7 +102,7 @@ class UserView(viewsets.ViewSet):
             return Response(serializer.data)
         else:
             return Response()
-        
+
 class SurveyViewSet(viewsets.ModelViewSet):
     serializer_class = SurveySerializer
     queryset = Survey.objects.all()
@@ -125,7 +135,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
         statements = Statement.objects.filter(question=serializer.validated_data['question'])
         context = 'pass'
         run_statements(statements, context, self.request.user)
-        
+
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
         statements = Statement.objects.filter(question=serializer.validated_data['question'])
@@ -150,7 +160,7 @@ class ChangeSurveyView(APIView):
 
     def delete(self, request, survey_id):
         if request.user.is_authenticated():
-            s = Survey.objects.get(pk=survey_id) 
+            s = Survey.objects.get(pk=survey_id)
             if(s):
                 if s.id == request.session['survey']:
                     request.session['survey'] = None
@@ -167,7 +177,7 @@ class ChangeSurveyView(APIView):
 
     def get(self, request, survey_id):
         if request.user.is_authenticated():
-            s = Survey.objects.get(pk=survey_id) 
+            s = Survey.objects.get(pk=survey_id)
             if(s):
                 request.session['survey'] = s.id
                 return Response(True)

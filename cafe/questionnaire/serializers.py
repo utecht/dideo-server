@@ -36,18 +36,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'is_staff', 'email')
 
 class QuestionSerializer(serializers.ModelSerializer):
-    disabled = serializers.SerializerMethodField('is_disabled')
+    enabled = serializers.SerializerMethodField('is_enabled')
     graph = serializers.SerializerMethodField('has_graph')
     depends_on = serializers.SerializerMethodField('get_depends')
     answer = serializers.SerializerMethodField('get_user_answer')
 
-    def is_disabled(self, question):
-        if 'survey' in self.context['request'].session:
-            s = self.context['request'].session['survey']
-            survey = Survey.objects.get(id=s)
-            return question.disabled(survey)
-        else:
-            return False
+    def is_enabled(self, question):
+        user = self.context['request'].user
+        s = self.context['request'].session['survey']
+        survey = Survey.objects.get(id=s)
+        return question.enabled(survey, user)
 
     def has_graph(self, question):
         s = Statement.objects.filter(question=question)
@@ -75,5 +73,5 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text', 'disabled', 'graph', 'depends_on')
+        fields = ('id', 'text', 'q_type', 'options', 'answer', 'tags', 'help_text', 'enabled', 'graph', 'depends_on')
         depth = 1
